@@ -3,5 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaobai.xblog.dao.BlogDao">
-
+	<select id="getBlogS" resultType="blog">
+		SELECT * FROM x_blog ORDER BY id DESC
+	</select>
+	<select id="queryBlogsByKwd" resultType="blog">
+		SELECT * FROM c_blog
+		<where>
+			blogtittle LIKE "%#{val}%" OR 
+			blogmain LIKE "%#{val}%" OR 
+			tag "%#{val}%"
+		</where>
+	</select>
 </mapper>

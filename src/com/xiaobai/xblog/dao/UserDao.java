@@ -1,5 +1,10 @@
 package com.xiaobai.xblog.dao;
 
-public interface UserDao {
+import org.apache.ibatis.annotations.Param;
 
+import com.xiaobai.xblog.pojo.User;
+
+public interface UserDao {
+	public int insertUser(User u);
+	public User checkContain(@Param("un")String un,@Param("pwd")String pwd);
 }

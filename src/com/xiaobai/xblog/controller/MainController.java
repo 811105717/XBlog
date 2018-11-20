@@ -1,7 +1,12 @@
 package com.xiaobai.xblog.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+import com.xiaobai.xblog.pojo.Blog;
 import com.xiaobai.xblog.pojo.User;
 import com.xiaobai.xblog.service.BlogService;
 import com.xiaobai.xblog.service.UserService;
@@ -35,6 +40,8 @@ public class MainController {
 	@RequestMapping(value="/index.action")
 	public String toIndex(Model model) {
 		System.out.println("successfully!!!");
+		List<Blog> blogList = blogService.queryAllBlogs();
+		model.addAttribute("blogs", blogList);
 		return "index";
 	}
 	
@@ -69,8 +76,12 @@ public class MainController {
 	@RequestMapping(value="/search.action")
 	public String searching(String kwd, Model model) {
 		model.addAttribute("kwd", kwd); //搜索结果页面的搜索框内的值
-		System.out.println(kwd);
-		return "";
+		List<Blog> results = blogService.searchByKwd(kwd);
+		for (Blog blog : results) {
+			System.out.println(blog);
+		}
+		model.addAttribute("results",results);
+		return "result";
 	}
 	
 	/**
@@ -81,11 +92,17 @@ public class MainController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/login.action")
-	public Map<String,String> login(String un,String pwd) {
-		Map<String,String> map = new HashMap<>();
-		map.put("result", "success");
-		map.put("un", un);
-		map.put("pwd", pwd);
+	public Map<String,Object> login(String un,String pwd,HttpSession session) {
+		boolean res = userService.checkUser(un,pwd);
+		Map<String,Object> map = new HashMap<>();
+		if(res) {
+			session.setAttribute("_LOGIN_USER_", un);
+			map.put("result", true);
+			map.put("un", un);
+		}
+		else {
+			map.put("result", false);
+		}
 		return map;
 	}
 	
@@ -96,10 +113,32 @@ public class MainController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/register.action")
-	public Map<String,String> register(User u){
-		Map<String,String> map = new HashMap<String, String>();
-		map.put("result", "true");
-		map.put("un", u.getUsername());
+	public Map<String,Object> register(User u,HttpSession session){
+		u.setRegisterdate(new SimpleDateFormat("yyyy-MM-dd/:HH:mm:ss").format(new Date()));
+		int res = userService.adduser(u);
+		Map<String,Object> map = new HashMap<String, Object>();
+		if(res>0) {
+			session.setAttribute("_LOGIN_USER_", u.getUsername());
+			map.put("un", u.getUsername());
+			map.put("result",true);
+		}
+		else {
+			map.put("result",false);
+		}
+		
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/logout.action")
+	public Map<String,Object> logout(HttpSession session){
+		Map<String,Object> map = new HashMap<>();
+		try {
+			session.removeAttribute("_LOGIN_USER_");
+			map.put("result", true);
+		}catch(Exception e) {
+			map.put("result", false);
+		}
 		return map;
 	}
 	

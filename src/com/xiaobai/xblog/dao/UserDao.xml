@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaobai.xblog.dao.UserDao">
+	<insert id="insertUser" parameterType="user">
+		INSERT INTO x_user VALUES
+		(null,#{username},#{password},
+		#{registerdate},#{email},#{address}, 
+		#{tel},#{sex})
+	</insert>
+	
+	<select id="checkContain" resultType="user">
+		SELECT * FROM x_user
+		<where>
+			username = #{un} and password = #{pwd}
+		</where>
+	</select>
+</mapper>
