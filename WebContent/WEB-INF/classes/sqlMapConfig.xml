@@ -6,10 +6,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 设置别名 -->
 	<typeAliases>
 		<!-- 2. 指定扫描包，会把包内所有的类都设置别名，别名的名称就是类名，大小写不敏感 -->
-		<package name="com.xiaobai.pojo" />
+		<package name="com.xiaobai.xblog.pojo" />
 	</typeAliases>
 	<!-- 配置mapper地址 自动扫描包 -->
 	<mappers>
-		<package name="com.xiaobai.dao"/>
+		<package name="com.xiaobai.xblog.dao"/>
 	</mappers>
 </configuration>

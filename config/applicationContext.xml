@@ -25,6 +25,6 @@
    </bean>
    <!-- 配置扫描mapper  -->
    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-   		<property name="basePackage" value="com.xiaobai.dao"/>
+   		<property name="basePackage" value="com.xiaobai.xblog.dao"/>
    </bean>
 </beans>
