@@ -3,7 +3,6 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
-
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
 	rel="stylesheet">
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css"
