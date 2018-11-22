@@ -15,5 +15,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBlogById" resultType="blog">
 		SELECT * FROM x_blog WHERE id = #{id}
 	</select>
+	<select id="getBlogUpCountById" resultType="Integer">
+		SELECT upcount from x_blog WHERE id = #{id}
+	</select>
+	<update id="updateUpCount">
+		UPDATE x_blog SET upcount = #{val} WHERE id= #{id}
+	</update>
+	<select id="getBlogDownCountById" resultType="Integer">
+		SELECT downcount from x_blog WHERE id = #{id}
+	</select>
+	<update id="updateDownCount">
+		UPDATE x_blog SET downcount = #{val} WHERE id= #{id}
+	</update>
 	
 </mapper>

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,27 +46,6 @@ public class MainController {
 		return "index";
 	}
 	
-	/**
-	 * 处理需要的数据 然后跳转到个人中心
-	 * @param model 可能需要一些参数  ？
-	 * @return 个人中心页面
-	 */
-	@RequestMapping(value="/own/center.action")
-	public String selfCenter(Model model) {
-		
-		return "";
-	}
-	
-	/**
-	 * 处理数据然后跳转到个人消息中心
-	 * @param model 可能需要一些数据
-	 * @return 跳转的页面
-	 */
-	@RequestMapping(value="/own/message.action")
-	public String selfMessage(Model model) {
-		
-		return "";
-	}
 	
 	/**
 	 * 根据关键词搜索
@@ -166,5 +146,78 @@ public class MainController {
 		model.addAttribute("blog", blog);
 		return "showblog";
 	}
+	
+	/**
+	 * 更新点赞数
+	 * @param id 博文id
+	 * @return  更新结果 true false  
+	 */
+	@ResponseBody
+	@RequestMapping(value="/upcount.action")
+	public Map<String,Object> upBlogAction(Integer id){
+		Map<String,Object> map = new HashMap<>();
+		int res = blogService.doup(id);
+		if(res>0) {
+			map.put("result", true);
+			map.put("count", res);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	/**
+	 * 更新点踩数 
+	 * @param id  博文id
+	 * @return 更新结果  true false 
+	 */
+	@ResponseBody
+	@RequestMapping(value="/downcount.action")
+	public Map<String,Object> downBlogAction(Integer id){
+		Map<String,Object> map = new HashMap<>();
+		int res = blogService.dodown(id);
+		if(res>0) {
+			map.put("result", true);
+			map.put("count", res);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	/**
+	 * 处理需要的数据 然后跳转到个人中心
+	 * @param model 可能需要一些参数  ？
+	 * @return 个人中心页面
+	 */
+	@RequestMapping(value="/own/center.action")
+	public String selfCenter(Model model) {
+		
+		return "";
+	}
+	
+	/**
+	 * 处理数据然后跳转到个人消息中心
+	 * @param model 可能需要一些数据
+	 * @return 跳转的页面
+	 */
+	@RequestMapping(value="/own/message.action")
+	public String selfMessage(Model model) {
+		
+		return "";
+	}
+	
+	/**
+	 * 写新博客  默认走这一条路径 转发到写博客的页面  方便拦截器拦截
+	 * @return 写博客页面的地址
+	 */
+	@RequestMapping(value="/own/newblog.action")
+	public String writeNewBlog(HttpServletRequest request) {
+		//do nothing here  only forward 
+		return "newblog";
+	}
+	
 	
 }

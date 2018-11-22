@@ -4,10 +4,10 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
 <link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet">
-<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet">
+<script type="text/javascript" src="${ pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript" src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
-<script type="text/javascript" src="${ pageContext.request.contextPath }/js/jquery.js"></script>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet">
 <!-- 处理登陆及登陆后的一些操作！ -->
 <script>
 	function logout(basepath) {
@@ -253,6 +253,9 @@
 									<i class="sui-icon icon-tb-emoji"></i>用户 [ ${ sessionScope._LOGIN_USER_ }
 									],欢迎您！
 								</button>
+								<a class="sui-btn btn-success" href="${ pageContext.request.contextPath }/own/newblog.action">
+									<i class="sui-icon icon-touch-edit"></i>写文章
+								</a>
 								<button class="sui-btn btn-success"
 									onclick="logout('${ pageContext.request.contextPath }')">
 									<i class="sui-icon icon-tb-close"></i>退出

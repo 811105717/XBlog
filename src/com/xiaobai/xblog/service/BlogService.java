@@ -8,4 +8,6 @@ public interface BlogService {
 	public List<Blog> queryAllBlogs();
 	public List<Blog> searchByKwd(String kwd);
 	public Blog queryBlogById(Integer id);
+	public int doup(Integer id);
+	public int dodown(Integer id);
 }

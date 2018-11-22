@@ -26,5 +26,25 @@ public class BlogServiceImpl implements BlogService {
 	public Blog queryBlogById(Integer id) {
 		return blogDao.getBlogById(id);
 	}
+	@Override
+	public int doup(Integer id) {
+		int cur = blogDao.getBlogUpCountById(id);
+		if(blogDao.updateUpCount(cur+1,id)>0) {
+			return blogDao.getBlogUpCountById(id); //得到新的点赞数
+		}
+		else {
+			return 0; //失败
+		}
+	}
+	@Override
+	public int dodown(Integer id) {
+		int cur = blogDao.getBlogDownCountById(id);
+		if(blogDao.updateDownCount(cur+1,id)>0) {
+			return blogDao.getBlogDownCountById(id); //得到新的点赞数
+		}
+		else {
+			return 0; //失败
+		}
+	}
 
 }

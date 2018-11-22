@@ -38,18 +38,28 @@
 	<div class="sui-row-fuild">
 		<div class="span5"><!-- 占位 --></div>
 		<div class="span2">
-			<button class="sui-btn btn-xxlarge btn-success" onclick="zan('${blog.id}')">赞！${ blog.upcount }</button>
-			<button class="sui-btn btn-xxlarge btn-warning" onclick="cai('${ blog.id }')">踩！ ${ blog.downcount }</button>
+			<button id="upbtn" class="sui-btn btn-xxlarge btn-success" onclick="zan('${ pageContext.request.contextPath }','${blog.id}')">赞！${ blog.upcount }</button>
+			<button id="downbtn" class="sui-btn btn-xxlarge btn-warning" onclick="cai('${ pageContext.request.contextPath }','${ blog.id }')">踩！ ${ blog.downcount }</button>
 		</div>
 		<div class="span5"><!-- 占位 --></div>
 	</div>
 </div>
 <script>
-function zan(){
-	alert("zan");
+function zan(url,tid){
+	$.post(url+"/upcount.action",{id:tid},function(data){
+		if(data.result){
+			$("#upbtn").html("赞！"+data.count);
+			$("#upbtn").attr("disabled","disabled");
+		}
+	});
 }
-function cai(){
-	alert("cai");
+function cai(url,tid){
+	$.post(url+"/downcount.action",{id:tid},function(data){
+		if(data.result){
+			$("#downbtn").html("踩！"+data.count);
+			$("#downbtn").attr("disabled","disabled");
+		}
+	});
 }
 </script>
 <%@include file="footer.jsp"%>
