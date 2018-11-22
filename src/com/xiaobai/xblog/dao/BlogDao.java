@@ -14,4 +14,5 @@ public interface BlogDao {
 	public int updateUpCount(@Param("val")Integer val,@Param("id") Integer id);
 	public int getBlogDownCountById(Integer id);
 	public int updateDownCount(@Param("val")Integer val,@Param("id") Integer id);
+	public int addNewBlog(Blog blog);
 }

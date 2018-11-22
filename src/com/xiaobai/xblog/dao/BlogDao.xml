@@ -27,5 +27,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateDownCount">
 		UPDATE x_blog SET downcount = #{val} WHERE id= #{id}
 	</update>
+	<insert id="addNewBlog" parameterType="blog">
+		<!-- 取到插入的key -->
+		<selectKey keyProperty="returnkey" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO x_blog VALUES 
+		(null,#{userid},#{blogtittle},
+		#{blogmain},#{createdate},#{tag},
+		0,0)
+	</insert>
 	
 </mapper>

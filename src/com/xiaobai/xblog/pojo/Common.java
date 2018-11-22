@@ -17,6 +17,14 @@ public class Common implements Serializable {
 	private String date;
 	private Integer upcount;
 	private Integer downcount;
+	private Integer returnkey;
+	
+	public Integer getReturnkey() {
+		return returnkey;
+	}
+	public void setReturnkey(Integer returnkey) {
+		this.returnkey = returnkey;
+	}
 	public Integer getId() {
 		return id;
 	}

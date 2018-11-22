@@ -45,6 +45,8 @@
 						function(data) {
 							if (data.result) {
 								var inner = "<button  id=\"user\" class=\"sui-btn btn-success\"></button>"
+									+"<a class=\"sui-btn btn-success\" href=\"${ pageContext.request.contextPath }/own/newblog.action\">"	
+									+"<i class=\"sui-icon icon-touch-edit\"></i>写文章</a>"
 										+ "<button class=\"sui-btn btn-success\" onclick=\"logout('${ pageContext.request.contextPath }')\">"
 										+ "<i class=\"sui-icon icon-tb-close\"></i>退出</button>";
 								var ico = "<i class=\"sui-icon icon-tb-emoji\"></i>"
@@ -94,6 +96,8 @@
 								if (data.result) {
 									$("#regwindow").modal('hide');
 									var inner = "<button  id=\"user\" class=\"sui-btn btn-success\"></button>"
+											+"<a class=\"sui-btn btn-success\" href=\"${ pageContext.request.contextPath }/own/newblog.action\">"
+											+"<i class=\"sui-icon icon-touch-edit\"></i>写文章</a>"
 											+ "<button class=\"sui-btn btn-success\" onclick=\"logout('${ pageContext.request.contextPath }')\">"
 											+ "<i class=\"sui-icon icon-tb-close\"></i>退出</button>";
 									var ico = "<i class=\"sui-icon icon-tb-emoji\"></i>"
@@ -234,8 +238,8 @@
 						<!-- id方便登陆后局部刷新 -->
 						<c:if test="${ empty sessionScope._LOGIN_USER_ }">
 							<div id="logincontrol" class="sui-form sui-form pull-right">
-								用户名：<input type="text" name="un" id="un" data-rules="required">
-								密 码：<input type="password" name="pwd" id="pwd"
+								用户名：<input style="height: 20px" type="text" name="un" id="un" data-rules="required">
+								密 码：<input style="height: 20px" type="password" name="pwd" id="pwd"
 									data-rules="required">
 								<button class="sui-btn"
 									onclick="login('${ pageContext.request.contextPath }')">
@@ -265,7 +269,7 @@
 						<form class="sui-form sui-form"
 							action="${ pageContext.request.contextPath }/search.action"
 							method="post">
-							<input type="text" name="kwd" placeholder="标签/文章标题">
+							<input type="text" style="height: 20px" name="kwd" placeholder="标签/文章标题">
 							<button class="sui-btn">搜索</button>
 						</form>
 

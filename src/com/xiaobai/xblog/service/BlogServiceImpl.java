@@ -46,5 +46,9 @@ public class BlogServiceImpl implements BlogService {
 			return 0; //Ê§°Ü
 		}
 	}
+	@Override
+	public int addNewBlog(Blog blog) {
+		return blogDao.addNewBlog(blog);
+	}
 
 }

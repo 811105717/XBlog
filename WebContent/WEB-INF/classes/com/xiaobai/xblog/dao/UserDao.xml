@@ -19,4 +19,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findUnById" resultType="java.lang.String">
 		SELECT username FROM x_user WHERE id = #{id}
 	</select>
+	
+	<select id="findIdByName" resultType="Integer">
+		SELECT id FROM x_user WHERE username = #{un}
+	</select>
 </mapper>

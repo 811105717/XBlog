@@ -219,5 +219,36 @@ public class MainController {
 		return "newblog";
 	}
 	
+	/**
+	 * 发布新的文章 
+	 * @param text  文章文本编码
+	 * @param session session 用来获取用户名
+ 	 * @return 结果 true false
+	 */
+	@ResponseBody
+	@RequestMapping(value="/own/addblog.action")
+	public Map<String,Object> sendBlog(String tittle,String tag,String text,HttpSession session){
+		Map<String,Object> map = new HashMap<>();
+		Integer uid = userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")); //肯定能查到 除非非法访问 
+		Blog blog = new Blog();
+		blog.setBlogmain(text);
+		blog.setTag(tag);
+		blog.setCreatedate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
+		blog.setUserid(uid);
+		blog.setBlogtittle(tittle);
+		blog.setUpcount(0);
+		blog.setDowncount(0);
+		int res = blogService.addNewBlog(blog);
+		if(res>0) {
+			blog.setId(res);
+			map.put("result", true);
+			map.put("id", blog.getReturnkey());
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
 	
 }

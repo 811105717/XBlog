@@ -18,6 +18,14 @@ public class Blog implements Serializable {
 	private String tag;
 	private Integer upcount;
 	private Integer downcount;
+	private Integer returnkey;
+	
+	public Integer getReturnkey() {
+		return returnkey;
+	}
+	public void setReturnkey(Integer returnkey) {
+		this.returnkey = returnkey;
+	}
 	public Integer getId() {
 		return id;
 	}

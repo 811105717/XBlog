@@ -18,6 +18,14 @@ public class User implements Serializable{
 	private String address;
 	private String tel;
 	private String sex;
+	private Integer returnkey;
+	
+	public Integer getReturnkey() {
+		return returnkey;
+	}
+	public void setReturnkey(Integer returnkey) {
+		this.returnkey = returnkey;
+	}
 	public Integer getId() {
 		return id;
 	}
