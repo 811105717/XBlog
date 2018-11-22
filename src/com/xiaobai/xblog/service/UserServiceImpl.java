@@ -11,6 +11,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserDao userDao;
+	
 	@Override
 	public int adduser(User u) {
 		return userDao.insertUser(u);
@@ -21,6 +22,10 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public String findUserNameById(Integer id) {
+		return userDao.findUnById(id);
 	}
 
 }

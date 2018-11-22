@@ -7,11 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM x_blog ORDER BY id DESC
 	</select>
 	<select id="queryBlogsByKwd" resultType="blog">
-		SELECT * FROM c_blog
+		SELECT * FROM x_blog
 		<where>
-			blogtittle LIKE "%#{val}%" OR 
-			blogmain LIKE "%#{val}%" OR 
-			tag "%#{val}%"
+			blogtittle LIKE "%"#{val}"%"
 		</where>
 	</select>
+	<select id="getBlogById" resultType="blog">
+		SELECT * FROM x_blog WHERE id = #{id}
+	</select>
+	
 </mapper>

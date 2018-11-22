@@ -12,6 +12,8 @@ import com.xiaobai.xblog.pojo.Blog;
 public class BlogServiceImpl implements BlogService {
 	@Autowired
 	BlogDao blogDao;
+	
+	
 	@Override
 	public List<Blog> queryAllBlogs() {
 		return blogDao.getBlogS();
@@ -19,6 +21,10 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public List<Blog> searchByKwd(String kwd) {
 		return blogDao.queryBlogsByKwd(kwd);
+	}
+	@Override
+	public Blog queryBlogById(Integer id) {
+		return blogDao.getBlogById(id);
 	}
 
 }

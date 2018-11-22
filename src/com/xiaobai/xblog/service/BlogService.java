@@ -7,4 +7,5 @@ import com.xiaobai.xblog.pojo.Blog;
 public interface BlogService {
 	public List<Blog> queryAllBlogs();
 	public List<Blog> searchByKwd(String kwd);
+	public Blog queryBlogById(Integer id);
 }

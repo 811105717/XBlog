@@ -3,16 +3,11 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <head>
-<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css"
-	rel="stylesheet">
-<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css"
-	rel="stylesheet">
-<script type="text/javascript"
-	src="${ pageContext.request.contextPath }/js/jquery.js"></script>
-<script type="text/javascript"
-	src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript"
-	src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet">
+<link href="http://g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet">
+<script type="text/javascript" src="http://g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="http://g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/js/jquery.js"></script>
 <!-- 处理登陆及登陆后的一些操作！ -->
 <script>
 	function logout(basepath) {
@@ -226,8 +221,7 @@
 							<li><a
 								href="${ pageContext.request.contextPath }/own/message.action">消息中心</a></li>
 							<li class="sui-dropdown"><a href="javascript:void(0);"
-								data-toggle="dropdown" class="dropdown-toggle">快捷链接<i
-									class="caret"></i></a>
+								data-toggle="dropdown" class="dropdown-toggle">快捷链接</a>
 								<ul role="menu" class="sui-dropdown-menu">
 									<li role="presentation"><a role="menuitem" tabindex="-1"
 										href="https://www.csdn.net/">CSDN</a></li>

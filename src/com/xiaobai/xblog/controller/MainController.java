@@ -75,12 +75,14 @@ public class MainController {
 	 */
 	@RequestMapping(value="/search.action")
 	public String searching(String kwd, Model model) {
-		model.addAttribute("kwd", kwd); //搜索结果页面的搜索框内的值
-		List<Blog> results = blogService.searchByKwd(kwd);
-		for (Blog blog : results) {
-			System.out.println(blog);
+		if(!kwd.trim().equals("")) {
+			model.addAttribute("kwd", kwd); //搜索结果页面的搜索框内的值
+			List<Blog> results = blogService.searchByKwd(kwd);
+			for (Blog blog : results) {
+				System.out.println(blog);
+			}
+			model.addAttribute("results",results);
 		}
-		model.addAttribute("results",results);
 		return "result";
 	}
 	
@@ -129,6 +131,11 @@ public class MainController {
 		return map;
 	}
 	
+	/**
+	 * 用户退出处理 返回退出结果
+	 * @param session  用来删除保存在session中的用户信息
+	 * @return  操作结果 成功  result 为 ture  失败为false
+	 */
 	@ResponseBody
 	@RequestMapping(value="/logout.action")
 	public Map<String,Object> logout(HttpSession session){
@@ -140,6 +147,24 @@ public class MainController {
 			map.put("result", false);
 		}
 		return map;
+	}
+	
+	/**
+	 * 根据id获得博客并跳转到展示页进行展示
+	 * @param id 博文的id号
+	 * @param model 查询结果保存在里面
+	 * @return 跳转页面名字
+	 */
+	@RequestMapping(value="/blog.action")
+	public String gotoBlog(Integer id,Model model) {
+		Blog blog = blogService.queryBlogById(id);
+		if(blog==null) {
+			return "error";
+		}
+		String author = userService.findUserNameById(blog.getUserid());
+		model.addAttribute("author", author);
+		model.addAttribute("blog", blog);
+		return "showblog";
 	}
 	
 }

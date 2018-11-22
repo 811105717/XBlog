@@ -9,11 +9,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{registerdate},#{email},#{address}, 
 		#{tel},#{sex})
 	</insert>
-	
 	<select id="checkContain" resultType="user">
 		SELECT * FROM x_user
 		<where>
 			username = #{un} and password = #{pwd}
 		</where>
+	</select>
+	<!-- 尝试改成接口注解 -->
+	<select id="findUnById" resultType="java.lang.String">
+		SELECT username FROM x_user WHERE id = #{id}
 	</select>
 </mapper>
