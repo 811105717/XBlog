@@ -14,11 +14,19 @@ public class Common implements Serializable {
 	private Integer blogid;
 	private String common;
 	private Integer userid;
+	private String authorname;
 	private String date;
 	private Integer upcount;
 	private Integer downcount;
 	private Integer returnkey;
 	
+	
+	public String getAuthorname() {
+		return authorname;
+	}
+	public void setAuthorname(String authorname) {
+		this.authorname = authorname;
+	}
 	public Integer getReturnkey() {
 		return returnkey;
 	}

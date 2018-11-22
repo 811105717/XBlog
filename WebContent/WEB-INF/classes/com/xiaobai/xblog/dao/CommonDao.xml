@@ -3,5 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaobai.xblog.dao.CommonDao">
-
+	<select id="queryCommonsByBid" resultType="common">
+		SELECT * FROM x_common WHERE blogid = #{id}
+	</select>
 </mapper>

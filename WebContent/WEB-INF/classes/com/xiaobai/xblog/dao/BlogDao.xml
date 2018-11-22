@@ -6,10 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getBlogS" resultType="blog">
 		SELECT * FROM x_blog ORDER BY id DESC
 	</select>
+	<!-- param指定就可以多次使用 -->
 	<select id="queryBlogsByKwd" resultType="blog">
 		SELECT * FROM x_blog
 		<where>
-			blogtittle LIKE "%"#{val}"%"
+			blogtittle LIKE "%"#{val}"%" OR blogmain LIKE "%"#{val}"%"
 		</where>
 	</select>
 	<select id="getBlogById" resultType="blog">

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xiaobai.xblog.pojo.Blog;
+import com.xiaobai.xblog.pojo.Common;
 import com.xiaobai.xblog.pojo.User;
 import com.xiaobai.xblog.service.BlogService;
+import com.xiaobai.xblog.service.CommonService;
 import com.xiaobai.xblog.service.UserService;
 
 /**
@@ -32,7 +34,8 @@ public class MainController {
 	private UserService userService;
 	@Autowired
 	private BlogService blogService;
-
+	@Autowired
+	private CommonService commonServce;
 	/**
 	 *处理主页数据，并发送到主页显示 
 	 * @param model 要显示的数据
@@ -141,7 +144,12 @@ public class MainController {
 		if(blog==null) {
 			return "error";
 		}
+		List<Common> commons = commonServce.getAllCommonByBlogId(id);
+		for (Common common : commons) {  //为每一条评论添加作者名字
+			common.setAuthorname(userService.findUserNameById(common.getUserid()));
+		}
 		String author = userService.findUserNameById(blog.getUserid());
+		model.addAttribute("commons", commons);
 		model.addAttribute("author", author);
 		model.addAttribute("blog", blog);
 		return "showblog";
