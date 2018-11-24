@@ -6,4 +6,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryCommonsByBid" resultType="common">
 		SELECT * FROM x_common WHERE blogid = #{id}
 	</select>
+	<select id="getUpById" resultType="Integer">
+		SELECT upcount FROM x_common WHERE id = #{id}
+	</select>
+	<update id="setUpById">
+		UPDATE x_common SET upcount = #{val} WHERE id = #{id}
+	</update>
+	<select id="getDownById" resultType="Integer">
+		SELECT downcount FROM x_common WHERE id = #{id}
+	</select>
+	<update id="setDownById">
+		UPDATE x_common SET downcount = #{val} WHERE ID = #{id}
+	</update>
 </mapper>

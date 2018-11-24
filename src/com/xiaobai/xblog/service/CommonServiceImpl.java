@@ -15,5 +15,17 @@ public class CommonServiceImpl implements CommonService {
 	public List<Common> getAllCommonByBlogId(Integer id) {
 		return commonDao.queryCommonsByBid(id);
 	}
+	@Override
+	public int doUp(Integer id) {
+		int cur = commonDao.getUpById(id);
+		commonDao.setUpById(cur+1,id);
+		return commonDao.getUpById(id);
+	}
+	@Override
+	public int doDown(Integer id) {
+		int cur = commonDao.getDownById(id);
+		commonDao.setDownById(cur+1,id);
+		return commonDao.getDownById(id);
+	}
 
 }

@@ -196,6 +196,41 @@ public class MainController {
 	}
 	
 	/**
+	 * 更新评论点赞数
+	 * @param id 评论条目id
+	 * @return 是否成功  
+	 */
+	@ResponseBody
+	@RequestMapping(value="/zancommon.action")
+	public Map<String,Object> comZan(Integer id){
+		Map<String,Object> map = new HashMap<>();
+		int res = commonServce.doUp(id);
+		if(res>0) {
+			map.put("result", true);
+			map.put("count", res);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/caicommon.action")
+	public Map<String,Object> comCai(Integer id){
+		Map<String,Object> map = new HashMap<>();
+		int res = commonServce.doDown(id);
+		if(res>0) {
+			map.put("result", true);
+			map.put("count", res);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	/**
 	 * 处理需要的数据 然后跳转到个人中心
 	 * @param model 可能需要一些参数  ？
 	 * @return 个人中心页面

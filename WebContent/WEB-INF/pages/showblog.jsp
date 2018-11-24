@@ -62,7 +62,7 @@
 					<textarea class="span12" rows="10" id="common"></textarea>
 				</div>
 				<br>
-				<button class="sui-btn btn-xlarge btn-primary">发表评论</button>
+				<button class="sui-btn btn-xlarge btn-primary" onclick="sentcommon('${ pageContext.request.contextPath }','${ blog.id }')">发表评论</button>
 			</div>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 </div>
 <c:if test="${ !empty commons }">
 
-	<c:forEach items="${ commons }" var="com">
+	<c:forEach items="${ commons }" var="com" varStatus="vas">
 		<br>
 		<div class="sui-container">
 			<div class="sui-row-fuild">
@@ -91,8 +91,8 @@
 					<div class="pull-right">
 						评论日期：${ com.date } &nbsp;&nbsp; 作者：${ com.authorname }
 						&nbsp;&nbsp;
-						<button class="sui-btn btn-xlarge btn-success">赞！</button>
-						<button class="sui-btn btn-xlarge btn-warning">踩！</button>
+						<button id="zancom${ vas.count }" class="sui-btn btn-xlarge btn-success" onclick="zancommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }')">赞！${ com.upcount }</button>
+						<button id="caicom${ vas.count }" class="sui-btn btn-xlarge btn-warning" onclick="caicommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }')">踩！${ com.downcount }</button>
 					</div>
 				</div>
 			</div>
@@ -127,6 +127,32 @@
 				$("#upbtn").attr("disabled", "disabled");
 			}
 		});
+	}
+	function zancommon(url,id,ids){
+		$.post(url+"/zancommon.action",{
+			id:id
+		},function(data){
+			if(data.result){
+				$("#zancom"+ids).html("赞"+data.count);
+				$("#zancom"+ids).attr("disabled","disabled");
+				$("#caicom"+ids).attr("disabled","disabled");
+			}
+		});
+	}
+	function caicommon(url,id,ids){
+		$.post(url+"/caicommon.action",{
+			id:id
+		},function(data){
+			if(data.result){
+				$("#caicom"+ids).html("踩"+data.count);
+				$("#zancom"+ids).attr("disabled","disabled");
+				$("#caicom"+ids).attr("disabled","disabled");
+			}
+		})
+	}
+	
+	function sentcommon(url,id){
+		alert(id);
 	}
 </script>
 <%@include file="footer.jsp"%>
