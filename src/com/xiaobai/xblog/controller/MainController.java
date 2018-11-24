@@ -236,8 +236,15 @@ public class MainController {
 		return map;
 	}
 	
+	/**
+	 * 发表评论
+	 * @param id  文章id
+	 * @param common 评论内容
+	 * @param session 检查登陆用户使用
+	 * @return 评论结果
+	 */
 	@ResponseBody
-	@RequestMapping(value="/sendcommon.action")
+	@RequestMapping(value="/own/sendcommon.action")
 	public Map<String,Object> sentCommon(Integer id,String common,HttpSession session){
 		Map<String,Object> map = new HashMap<>();
 		String secur = HtmlUtils.htmlEscape(common); //防止xss攻击

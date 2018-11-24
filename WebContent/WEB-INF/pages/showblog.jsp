@@ -153,7 +153,7 @@
 	
 	function sentcommon(url,id){
 		let common = $("#common").val();
-		$.post(url+"/sendcommon.action",{
+		$.post(url+"/own/sendcommon.action",{
 			id:id,
 			common:common
 		},function(data){
