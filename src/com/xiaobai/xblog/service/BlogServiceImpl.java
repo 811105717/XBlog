@@ -50,5 +50,9 @@ public class BlogServiceImpl implements BlogService {
 	public int addNewBlog(Blog blog) {
 		return blogDao.addNewBlog(blog);
 	}
+	@Override
+	public int getUidByBlogId(Integer id) {
+		return blogDao.getUidByBlogId(id);
+	}
 
 }

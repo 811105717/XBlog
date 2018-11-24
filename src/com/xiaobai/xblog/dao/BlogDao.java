@@ -15,4 +15,5 @@ public interface BlogDao {
 	public int getBlogDownCountById(Integer id);
 	public int updateDownCount(@Param("val")Integer val,@Param("id") Integer id);
 	public int addNewBlog(Blog blog);
+	public int getUidByBlogId(Integer id);
 }

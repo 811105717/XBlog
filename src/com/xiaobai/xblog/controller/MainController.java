@@ -18,9 +18,11 @@ import org.springframework.web.util.HtmlUtils;
 
 import com.xiaobai.xblog.pojo.Blog;
 import com.xiaobai.xblog.pojo.Common;
+import com.xiaobai.xblog.pojo.Message;
 import com.xiaobai.xblog.pojo.User;
 import com.xiaobai.xblog.service.BlogService;
 import com.xiaobai.xblog.service.CommonService;
+import com.xiaobai.xblog.service.MessageService;
 import com.xiaobai.xblog.service.UserService;
 
 /**
@@ -37,6 +39,8 @@ public class MainController {
 	private BlogService blogService;
 	@Autowired
 	private CommonService commonServce;
+	@Autowired
+	private MessageService messageService;
 	/**
 	 *处理主页数据，并发送到主页显示 
 	 * @param model 要显示的数据
@@ -166,6 +170,12 @@ public class MainController {
 	public Map<String,Object> upBlogAction(Integer id){
 		Map<String,Object> map = new HashMap<>();
 		int res = blogService.doup(id);
+		//添加消息
+		Message m = new Message();
+		m.setUid(blogService.getUidByBlogId(id));
+		m.setBlogid(id);
+		m.setMess("您的博文收到了一个赞！");
+		messageService.addMessage(m);
 		if(res>0) {
 			map.put("result", true);
 			map.put("count", res);
@@ -186,6 +196,12 @@ public class MainController {
 	public Map<String,Object> downBlogAction(Integer id){
 		Map<String,Object> map = new HashMap<>();
 		int res = blogService.dodown(id);
+		//添加消息
+		Message m = new Message();
+		m.setUid(blogService.getUidByBlogId(id));
+		m.setBlogid(id);
+		m.setMess("有人踩了你的博文！快看看吧！！");
+		messageService.addMessage(m);
 		if(res>0) {
 			map.put("result", true);
 			map.put("count", res);
@@ -206,6 +222,12 @@ public class MainController {
 	public Map<String,Object> comZan(Integer id){
 		Map<String,Object> map = new HashMap<>();
 		int res = commonServce.doUp(id);
+		//添加消息
+		Message m = new Message();
+		m.setUid(blogService.getUidByBlogId(id));
+		m.setBlogid(id);
+		m.setMess("有人赞了你的评论！！！");
+		messageService.addMessage(m);
 		if(res>0) {
 			map.put("result", true);
 			map.put("count", res);
@@ -226,6 +248,12 @@ public class MainController {
 	public Map<String,Object> comCai(Integer id){
 		Map<String,Object> map = new HashMap<>();
 		int res = commonServce.doDown(id);
+		//添加消息
+		Message m = new Message();
+		m.setUid(blogService.getUidByBlogId(id));
+		m.setBlogid(id);
+		m.setMess("有人踩了你的评论！");
+		messageService.addMessage(m);
 		if(res>0) {
 			map.put("result", true);
 			map.put("count", res);
@@ -255,6 +283,13 @@ public class MainController {
 		c.setDowncount(0); c.setUpcount(0); 
 		c.setDate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
 		int res = commonServce.sentNewCommon(c);
+		//添加消息
+		Message m = new Message();
+		m.setUid(blogService.getUidByBlogId(id));
+		m.setBlogid(id);
+		m.setMess("您收到了新的评论！");
+		messageService.addMessage(m);
+		
 		if(res>0) {
 			map.put("result", true);
 		}
@@ -270,9 +305,27 @@ public class MainController {
 	 * @return 个人中心页面
 	 */
 	@RequestMapping(value="/own/center.action")
-	public String selfCenter(Model model) {
-		
-		return "";
+	public String selfCenter(HttpSession session,Model model) {
+		User u = userService.getUserById(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+		model.addAttribute("user", u);
+		return "usercenter";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/own/updateprofile.action")
+	public Map<String,Object> updateUserProfile(String pass,String address,String email,String tel,HttpSession session){
+		Map<String,Object> map = new HashMap<>();
+		User u = new User();
+		u.setAddress(address); u.setEmail(email); u.setPassword(pass); u.setTel(tel);
+		u.setId(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+		int res = userService.updateUser(u);
+		if(res>0) {
+			map.put("result", true);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
 	}
 	
 	/**
@@ -281,9 +334,10 @@ public class MainController {
 	 * @return 跳转的页面
 	 */
 	@RequestMapping(value="/own/message.action")
-	public String selfMessage(Model model) {
-		
-		return "";
+	public String selfMessage(Model model,HttpSession session) {
+		List<Message> messages = messageService.getUserMessage(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+		model.addAttribute("messages", messages);
+		return "mymessage";
 	}
 	
 	/**
@@ -327,5 +381,9 @@ public class MainController {
 		return map;
 	}
 	
+	@RequestMapping(value="/own/isread.action")
+	public void setRead(Integer id) {
+		messageService.setReaded(id);
+	}
 	
 }

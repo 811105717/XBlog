@@ -23,4 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findIdByName" resultType="Integer">
 		SELECT id FROM x_user WHERE username = #{un}
 	</select>
+	<select id="findUserById" resultType="user">
+		SELECT * FROM x_user WHERE id= #{id}
+	</select>
+	<update id="UpdateUser" parameterType="user">
+		UPDATE x_user SET password=#{password},email=#{email},
+		address=#{address}, tel = #{tel} WHERE id=#{id}
+	</update>
 </mapper>

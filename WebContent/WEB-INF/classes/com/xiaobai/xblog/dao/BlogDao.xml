@@ -38,5 +38,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{blogmain},#{createdate},#{tag},
 		0,0)
 	</insert>
+	<select id="getUidByBlogId" resultType="Integer">
+		SELECT userid FROM x_blog WHERE id =#{id}
+	</select>
 	
 </mapper>

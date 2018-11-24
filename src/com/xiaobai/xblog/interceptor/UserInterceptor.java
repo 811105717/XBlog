@@ -9,9 +9,9 @@ public class UserInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		String user = (String)request.getSession().getAttribute("_LOGIN_USER_");
 		if(null==user||user.trim().equals("")) {
+			response.sendRedirect("../nolog.jsp");
 			return false;
 		}
 		return true;
-		
 	}
 }

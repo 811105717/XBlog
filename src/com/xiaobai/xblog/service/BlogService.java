@@ -11,4 +11,5 @@ public interface BlogService {
 	public int doup(Integer id);
 	public int dodown(Integer id);
 	public int addNewBlog(Blog blog);
+	public int getUidByBlogId(Integer id);
 }

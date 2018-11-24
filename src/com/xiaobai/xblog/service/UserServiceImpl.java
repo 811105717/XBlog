@@ -31,5 +31,13 @@ public class UserServiceImpl implements UserService {
 	public Integer getUidByName(String un) {
 		return userDao.findIdByName(un);
 	}
+	@Override
+	public User getUserById(Integer id) {
+		return userDao.findUserById(id);
+	}
+	@Override
+	public int updateUser(User u) {
+		return userDao.UpdateUser(u);
+	}
 
 }

@@ -9,4 +9,6 @@ public interface UserDao {
 	public User checkContain(@Param("un")String un,@Param("pwd")String pwd);
 	public String findUnById(Integer id);
 	public Integer findIdByName(String un);
+	public User findUserById(Integer id);
+	public int UpdateUser(User u);
 }

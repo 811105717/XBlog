@@ -7,4 +7,6 @@ public interface UserService {
 	public boolean checkUser(String un,String pwd);
 	public String findUserNameById(Integer id);
 	public Integer getUidByName(String un);
+	public User getUserById(Integer id);
+	public int updateUser(User u);
 }

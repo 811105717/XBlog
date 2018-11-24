@@ -46,6 +46,11 @@ function getContent(url) {
     		if(data.result){
     			window.location.href=url+"/blog.action?id="+data.id; //定位到发布后的文章
     		}
+    		else{
+    			$("#messagetittle").text("发布失败");
+    	    	$("#messagebody").text("可能您已经掉线或账户存在异常，请刷新重试");
+    	    	$("#errmessage").modal('show');
+    		}
     	});
     }
 }

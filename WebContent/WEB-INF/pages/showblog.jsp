@@ -160,6 +160,11 @@
 			if(data.result){
 				window.location.reload(); //刷新
 			}
+			else{
+				$("#messagetittle").text("失败提示");
+		    	$("#messagebody").text("你已经掉线或者账户存在异常，请刷新重试");
+		    	$("#errmessage").modal('show');
+			}
 		});
 	}
 </script>
