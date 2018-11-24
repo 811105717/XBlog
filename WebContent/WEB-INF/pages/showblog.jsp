@@ -152,7 +152,15 @@
 	}
 	
 	function sentcommon(url,id){
-		alert(id);
+		let common = $("#common").val();
+		$.post(url+"/sendcommon.action",{
+			id:id,
+			common:common
+		},function(data){
+			if(data.result){
+				window.location.reload(); //刷新
+			}
+		});
 	}
 </script>
 <%@include file="footer.jsp"%>

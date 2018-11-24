@@ -10,4 +10,5 @@ public interface CommonService {
 	public List<Common> getAllCommonByBlogId(Integer id);
 	public int doUp(Integer id);
 	public int doDown(Integer id);
+	public int sentNewCommon(Common c);
 }

@@ -27,5 +27,9 @@ public class CommonServiceImpl implements CommonService {
 		commonDao.setDownById(cur+1,id);
 		return commonDao.getDownById(id);
 	}
+	@Override
+	public int sentNewCommon(Common c) {
+		return commonDao.sentNewCommon(c);
+	}
 
 }

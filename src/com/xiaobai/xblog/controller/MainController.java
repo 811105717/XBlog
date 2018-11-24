@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.HtmlUtils;
 
 import com.xiaobai.xblog.pojo.Blog;
 import com.xiaobai.xblog.pojo.Common;
@@ -215,6 +216,11 @@ public class MainController {
 		return map;
 	}
 	
+	/**
+	 * 更新点踩数 
+	 * @param id 评论条目id
+	 * @return 更新结果 
+	 */
 	@ResponseBody
 	@RequestMapping(value="/caicommon.action")
 	public Map<String,Object> comCai(Integer id){
@@ -223,6 +229,27 @@ public class MainController {
 		if(res>0) {
 			map.put("result", true);
 			map.put("count", res);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/sendcommon.action")
+	public Map<String,Object> sentCommon(Integer id,String common,HttpSession session){
+		Map<String,Object> map = new HashMap<>();
+		String secur = HtmlUtils.htmlEscape(common); //防止xss攻击
+		int uid = userService.getUidByName((String)(session.getAttribute("_LOGIN_USER_")));
+		Common c = new Common();
+		c.setBlogid(id); c.setUserid(uid); c.setCommon(secur);
+		c.setAuthorname((String)session.getAttribute("_LOGIN_USER_"));
+		c.setDowncount(0); c.setUpcount(0); 
+		c.setDate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
+		int res = commonServce.sentNewCommon(c);
+		if(res>0) {
+			map.put("result", true);
 		}
 		else {
 			map.put("result", false);
