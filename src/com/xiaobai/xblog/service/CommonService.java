@@ -11,4 +11,5 @@ public interface CommonService {
 	public int doUp(Integer id);
 	public int doDown(Integer id);
 	public int sentNewCommon(Common c);
+	public int getUidByCommonId(Integer id);
 }

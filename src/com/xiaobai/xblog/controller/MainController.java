@@ -23,6 +23,7 @@ import com.xiaobai.xblog.pojo.User;
 import com.xiaobai.xblog.service.BlogService;
 import com.xiaobai.xblog.service.CommonService;
 import com.xiaobai.xblog.service.MessageService;
+import com.xiaobai.xblog.service.TagService;
 import com.xiaobai.xblog.service.UserService;
 
 /**
@@ -41,6 +42,8 @@ public class MainController {
 	private CommonService commonServce;
 	@Autowired
 	private MessageService messageService;
+	@Autowired
+	private TagService tagService;
 	/**
 	 *处理主页数据，并发送到主页显示 
 	 * @param model 要显示的数据
@@ -219,13 +222,13 @@ public class MainController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/zancommon.action")
-	public Map<String,Object> comZan(Integer id){
+	public Map<String,Object> comZan(Integer id,Integer blogid){
 		Map<String,Object> map = new HashMap<>();
 		int res = commonServce.doUp(id);
 		//添加消息
 		Message m = new Message();
-		m.setUid(blogService.getUidByBlogId(id));
-		m.setBlogid(id);
+		m.setUid(commonServce.getUidByCommonId(id));
+		m.setBlogid(blogid);
 		m.setMess("有人赞了你的评论！！！");
 		messageService.addMessage(m);
 		if(res>0) {
@@ -245,13 +248,13 @@ public class MainController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/caicommon.action")
-	public Map<String,Object> comCai(Integer id){
+	public Map<String,Object> comCai(Integer id,Integer blogid){
 		Map<String,Object> map = new HashMap<>();
 		int res = commonServce.doDown(id);
 		//添加消息
 		Message m = new Message();
-		m.setUid(blogService.getUidByBlogId(id));
-		m.setBlogid(id);
+		m.setUid(commonServce.getUidByCommonId(id));
+		m.setBlogid(blogid);
 		m.setMess("有人踩了你的评论！");
 		messageService.addMessage(m);
 		if(res>0) {
@@ -341,12 +344,12 @@ public class MainController {
 	}
 	
 	/**
-	 * 写新博客  默认走这一条路径 转发到写博客的页面  方便拦截器拦截
+	 * 获取可用的所有tag 然后跳转到写博客地址
 	 * @return 写博客页面的地址
 	 */
 	@RequestMapping(value="/own/newblog.action")
-	public String writeNewBlog(HttpServletRequest request) {
-		//do nothing here  only forward 
+	public String writeNewBlog(Model model) {
+		model.addAttribute("tags",tagService.getAllTag());
 		return "newblog";
 	}
 	

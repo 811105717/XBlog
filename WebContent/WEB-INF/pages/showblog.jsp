@@ -91,8 +91,10 @@
 					<div class="pull-right">
 						评论日期：${ com.date } &nbsp;&nbsp; 作者：${ com.authorname }
 						&nbsp;&nbsp;
-						<button id="zancom${ vas.count }" class="sui-btn btn-xlarge btn-success" onclick="zancommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }')">赞！${ com.upcount }</button>
-						<button id="caicom${ vas.count }" class="sui-btn btn-xlarge btn-warning" onclick="caicommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }')">踩！${ com.downcount }</button>
+						<button id="zancom${ vas.count }" class="sui-btn btn-xlarge btn-success" 
+						onclick="zancommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }','${ blog.id }')">赞！${ com.upcount }</button>
+						<button id="caicom${ vas.count }" class="sui-btn btn-xlarge btn-warning"
+						 onclick="caicommon('${ pageContext.request.contextPath }','${ com.id }','${ vas.count }','${ blog.id }')">踩！${ com.downcount }</button>
 					</div>
 				</div>
 			</div>
@@ -128,9 +130,10 @@
 			}
 		});
 	}
-	function zancommon(url,id,ids){
+	function zancommon(url,id,ids,blogid){
 		$.post(url+"/zancommon.action",{
-			id:id
+			id:id,
+			blogid:blogid
 		},function(data){
 			if(data.result){
 				$("#zancom"+ids).html("赞"+data.count);
@@ -139,9 +142,10 @@
 			}
 		});
 	}
-	function caicommon(url,id,ids){
+	function caicommon(url,id,ids,blogid){
 		$.post(url+"/caicommon.action",{
-			id:id
+			id:id,
+			blogid:blogid
 		},function(data){
 			if(data.result){
 				$("#caicom"+ids).html("踩"+data.count);

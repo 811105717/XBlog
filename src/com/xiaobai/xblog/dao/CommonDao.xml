@@ -23,4 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(null,#{blogid},#{common},#{userid},
 		#{date},#{upcount},#{downcount})
 	</insert>
+	<select id="getUidByComId" resultType="Integer">
+		SELECT userid FROM x_common WHERE id = #{id}
+	</select>
 </mapper>

@@ -54,5 +54,5 @@ public class BlogServiceImpl implements BlogService {
 	public int getUidByBlogId(Integer id) {
 		return blogDao.getUidByBlogId(id);
 	}
-
+	
 }

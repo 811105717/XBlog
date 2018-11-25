@@ -13,8 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			blogtittle LIKE "%"#{val}"%" OR blogmain LIKE "%"#{val}"%"
 		</where>
 	</select>
+	<!-- 右链接查tag -->
 	<select id="getBlogById" resultType="blog">
-		SELECT * FROM x_blog WHERE id = #{id}
+		SELECT * FROM x_blog LEFT JOIN x_tag ON x_blog.tagid=x_tag.id WHERE x_blog.id = #{id}
 	</select>
 	<select id="getBlogUpCountById" resultType="Integer">
 		SELECT upcount from x_blog WHERE id = #{id}

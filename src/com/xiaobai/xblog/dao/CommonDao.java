@@ -13,4 +13,5 @@ public interface CommonDao {
 	public int getDownById(Integer id);
 	public int setDownById(@Param("val")Integer val,@Param("id")Integer id);
 	public int sentNewCommon(Common c);
+	public int getUidByComId(Integer id);
 }

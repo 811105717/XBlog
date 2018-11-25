@@ -18,7 +18,13 @@
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<div class="sui-row-fuild">
 		<div class="span8 sui-form">
-		<span class="sui-text-large">Tag标签：</span><input style="height: 30px" type="text" id="tag" class="sui-form">
+		Tag标签：
+			<select id="tag">
+				<option value="">请选择tag</option>
+				<c:forEach items="${ tags }" var="ts">
+					<option value="${ ts.id }">${ ts.tag }</option>
+				</c:forEach>
+			</select>
 		<button class="sui-btn btn-bordered btn-xlarge btn-success" onclick="getContent('${ pageContext.request.contextPath }')">发表新文章</button>
 		</div>
 	</div>
@@ -27,13 +33,10 @@
 function getContent(url) {
 	 let text = $editor.editor('getContent');
 	 let tag = $("#tag").val();
-	 if(tag.trim()==""){
-		 tag = "暂无！";
-	 }
 	 let tittle = $("#tittle").val();
-    if(text.trim()==""||tittle.trim()==""){
+    if(text.trim()==""||tittle.trim()==""||tag.trim()==""){
     	$("#messagetittle").text("非法内容提示");
-    	$("#messagebody").text("您还没有输入内容或者标题，请输入内容后再提交！！");
+    	$("#messagebody").text("您输入的内容有缺失！请检查标题 文章和标签！，然后再提交！！");
     	$("#errmessage").modal('show');
     	return ;
     }

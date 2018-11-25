@@ -31,5 +31,9 @@ public class CommonServiceImpl implements CommonService {
 	public int sentNewCommon(Common c) {
 		return commonDao.sentNewCommon(c);
 	}
+	@Override
+	public int getUidByCommonId(Integer id) {
+		return commonDao.getUidByComId(id);
+	}
 
 }
