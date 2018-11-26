@@ -26,4 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUidByComId" resultType="Integer">
 		SELECT userid FROM x_common WHERE id = #{id}
 	</select>
+	<delete id="deleteCommonByBlogId" parameterType="Integer">
+		DELETE  FROM x_common WHERE blogid = #{ id }
+	</delete>
 </mapper>

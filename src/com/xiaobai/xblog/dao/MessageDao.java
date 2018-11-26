@@ -8,4 +8,5 @@ public interface MessageDao {
 	public int addMessage(Message m);
 	public List<Message> getAllUserMessageById(Integer id);
 	public int setReadedById(Integer id);
+	public int deleteMessageByBlogid(Integer id);
 }

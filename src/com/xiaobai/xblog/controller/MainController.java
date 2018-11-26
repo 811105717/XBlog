@@ -310,7 +310,9 @@ public class MainController {
 	@RequestMapping(value="/own/center.action")
 	public String selfCenter(HttpSession session,Model model) {
 		User u = userService.getUserById(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+		List<Blog> blogs = blogService.getUserBlogsByUid(u.getId());
 		model.addAttribute("user", u);
+		model.addAttribute("blogs", blogs);
 		return "usercenter";
 	}
 	
@@ -384,9 +386,30 @@ public class MainController {
 		return map;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/own/delete.action")
+	public Map<String,Object> deleteBlog(Integer id) {
+		Map<String,Object> map = new HashMap<>();
+		messageService.deleteMessageByBlogId(id);
+		commonServce.deleteCommonByBlogid(id);
+		int res = blogService.deleteBlogById(id);
+		if(res>0) {
+			map.put("result", true);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
+	}
+	
+	/**
+	 * 设定消息已读 当用户点击某一条消息时触发
+	 * @param id 被点击的消息的id
+	 */
 	@RequestMapping(value="/own/isread.action")
 	public void setRead(Integer id) {
-		messageService.setReaded(id);
+		int res = messageService.setReaded(id);
+		
 	}
 	
 }

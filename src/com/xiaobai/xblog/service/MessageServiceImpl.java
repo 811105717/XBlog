@@ -24,5 +24,9 @@ public class MessageServiceImpl implements MessageService {
 	public int setReaded(Integer id) {
 		return messageDao.setReadedById(id);
 	}
+	@Override
+	public int deleteMessageByBlogId(Integer id) {
+		return messageDao.deleteMessageByBlogid(id);
+	}
 
 }

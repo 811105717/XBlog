@@ -35,5 +35,9 @@ public class CommonServiceImpl implements CommonService {
 	public int getUidByCommonId(Integer id) {
 		return commonDao.getUidByComId(id);
 	}
+	@Override
+	public int deleteCommonByBlogid(Integer id) {
+		return commonDao.deleteCommonByBlogId(id);
+	}
 
 }

@@ -2,8 +2,8 @@
 <%@include file="header.jsp"%>
 <div class="sui-container">
 	<div class="sui-row-fuild">
-		<div class="span3"></div>
-		<div class="span6 sui-form ">
+		<div class="span4"></div>
+		<div class="span6 sui-form">
 			<div class="control-group">
 				<label for="username" class="control-label">用户名:</label>
 				<div class="controls">
@@ -54,8 +54,33 @@
 			</div>
 			<button type="button" class="sui-btn btn-success btn-xlarge" onclick="updatepro('${ pageContext.request.contextPath}')">更新信息</button>
 		</div>
-		
-		<div class="span3"></div>
+			<div class="span4"></div>
+	</div>
+	<div class="sui-row-fuild">
+		<div class="span12">
+			博客列表：
+			<table class="sui-table table-bordered">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>标题</th>
+						<th>日期</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${ blogs }" var="bl" varStatus="blcou">
+						<tr>
+							<td>${ blcou.count }</td>
+							<td>${ bl.blogtittle }</td>
+							<td>${ bl.createdate }</td>
+							<td><button class="sui-btn btn-danger" onclick="deleteblog('${pageContext.request.contextPath}','${ bl.id }')">删除</button></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				
+			</table>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
@@ -89,6 +114,25 @@
 				}
 			})
 		}
+	}
+	function deleteblog(url,id){
+		$("#messagetittle").text("再次确认！！！");
+		$("#messagebody").text("确定要删除博文吗？ （评论和其他数据都将被同时删除）！");
+		$("#errmessage").modal('show');
+		$("#errmessage").on('okHidden',function(){
+			$.post(url+"/own/delete.action",{
+				id:id
+			},function(data){
+				if(data.result){
+					window.location.href=url+"/own/center.action";
+				}
+				else{
+					$("#messagetittle").text("失败提示！！");
+					$("#messagebody").text("未知错误！！");
+					$("#errmessage").modal('show');
+				}
+			});
+		})
 	}
 </script>
 <%@include file="footer.jsp"%>

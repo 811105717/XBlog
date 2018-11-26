@@ -42,5 +42,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getUidByBlogId" resultType="Integer">
 		SELECT userid FROM x_blog WHERE id =#{id}
 	</select>
+	<select id="getBlogsByUid" resultType="blog">
+		SELECT * FROM x_blog WHERE userid = #{id}
+	</select>
+	<delete id="deleteBlogById">
+		DELETE FROM x_blog WHERE id = #{id}
+	</delete>
 	
 </mapper>

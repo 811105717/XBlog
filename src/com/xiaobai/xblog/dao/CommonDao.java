@@ -14,4 +14,5 @@ public interface CommonDao {
 	public int setDownById(@Param("val")Integer val,@Param("id")Integer id);
 	public int sentNewCommon(Common c);
 	public int getUidByComId(Integer id);
+	public int deleteCommonByBlogId(Integer id);
 }

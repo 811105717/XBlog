@@ -12,4 +12,5 @@ public interface CommonService {
 	public int doDown(Integer id);
 	public int sentNewCommon(Common c);
 	public int getUidByCommonId(Integer id);
+	public int deleteCommonByBlogid(Integer id);
 }

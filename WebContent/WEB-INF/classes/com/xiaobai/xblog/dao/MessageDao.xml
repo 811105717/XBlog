@@ -12,4 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="setReadedById" parameterType="Integer">
 		UPDATE x_message SET isread = 1 WHERE id = #{id}
 	</update>
+	<delete id="deleteMessageByBlogid" parameterType="Integer">
+		DELETE FROM x_message WHERE blogid = #{id}
+	</delete>
 </mapper>

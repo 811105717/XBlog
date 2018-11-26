@@ -12,4 +12,6 @@ public interface BlogService {
 	public int dodown(Integer id);
 	public int addNewBlog(Blog blog);
 	public int getUidByBlogId(Integer id);
+	public List<Blog> getUserBlogsByUid(Integer id);
+	public int deleteBlogById(Integer id);
 }
