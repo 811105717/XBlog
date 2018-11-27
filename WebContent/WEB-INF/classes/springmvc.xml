@@ -29,6 +29,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
 		<mvc:mapping path="/own/message.action"/>
 		<mvc:mapping path="/own/addblog.action"/>
 		<mvc:mapping path="/own/isread.action"/>
+		<mvc:mapping path="/own/newblog.action"/>
 		<mvc:mapping path="/own/delete.action"/>
 		<bean class="com.xiaobai.xblog.interceptor.UserInterceptor"/>
 	</mvc:interceptor>
