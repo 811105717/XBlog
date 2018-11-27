@@ -10,7 +10,7 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <!-- 配置上下文参数 -->
+  <!-- 配置spring上下文参数 -->
   <context-param>
   		<param-name>contextConfigLocation</param-name>
   		<param-value>classpath:applicationContext.xml</param-value>
@@ -46,6 +46,5 @@
   	<servlet-mapping>
   		<servlet-name>mainServlet</servlet-name>
   		<url-pattern>*.action</url-pattern>
-  	</servlet-mapping>
-  	
+  	</servlet-mapping>	
 </web-app>

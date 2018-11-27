@@ -85,7 +85,7 @@
 						<c:forEach items="${ blogs }" var="bl" varStatus="blcou">
 							<tr>
 								<td>${ blcou.count }</td>
-								<td>${ bl.blogtittle }</td>
+								<td><a href="${ pageContext.request.contextPath }/blog.action?id=${ bl.id }">${ bl.blogtittle }</a></td>
 								<td>${ bl.createdate }</td>
 								<td><button class="sui-btn btn-danger"
 										onclick="deleteblog('${pageContext.request.contextPath}','${ bl.id }')">删除</button></td>

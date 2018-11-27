@@ -22,6 +22,10 @@
    		<property name="dataSource" ref="dataSource"/>
    		<!-- 工厂配置文件 -->
    		<property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+   		<!-- 配置事务管理 -->
+   		<property name="transactionFactory">
+   			<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory"/>
+   		</property>
    </bean>
    <!-- 配置扫描mapper  -->
    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
