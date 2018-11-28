@@ -115,7 +115,7 @@
 				$("#upbtn").attr("disabled", "disabled");
 				$("#downbtn").attr("disabled", "disabled");
 			}
-		});
+		},"json");
 	}
 	function cai(url, tid) {
 		$.post(url + "/downcount.action", {
@@ -128,7 +128,7 @@
 				$("#downbtn").attr("disabled", "disabled");
 				$("#upbtn").attr("disabled", "disabled");
 			}
-		});
+		},"json");
 	}
 	function zancommon(url,id,ids,blogid){
 		$.post(url+"/zancommon.action",{
@@ -140,7 +140,7 @@
 				$("#zancom"+ids).attr("disabled","disabled");
 				$("#caicom"+ids).attr("disabled","disabled");
 			}
-		});
+		},"json");
 	}
 	function caicommon(url,id,ids,blogid){
 		$.post(url+"/caicommon.action",{
@@ -152,7 +152,7 @@
 				$("#zancom"+ids).attr("disabled","disabled");
 				$("#caicom"+ids).attr("disabled","disabled");
 			}
-		})
+		},"json")
 	}
 	
 	function sentcommon(url,id){
@@ -169,7 +169,7 @@
 		    	$("#messagebody").text("你已经掉线或者账户存在异常，请刷新重试");
 		    	$("#errmessage").modal('show');
 			}
-		});
+		},"json");
 	}
 </script>
 <%@include file="footer.jsp"%>

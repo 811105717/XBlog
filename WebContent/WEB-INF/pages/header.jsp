@@ -24,7 +24,7 @@
 										+ "<i class=\"sui-icon icon-tb-share\"></i>注册账户</button>";
 								$("#logincontrol").html(log);
 							}
-						})
+						},"json")
 	}
 	function login(basepath) {
 		var un = $("#un").val();
@@ -58,7 +58,7 @@
 								$("#messagebody").text("登陆失败，用户名或密码错误！");
 								$("#errmessage").modal('show');
 							}
-						});
+						},"json");
 	}
 
 	function register(basepath) {
@@ -106,7 +106,7 @@
 											ico + "用户 [ " + data.un
 													+ " ] ，欢迎您！");
 								}
-							});
+							},"json");
 		}
 	}
 </script>

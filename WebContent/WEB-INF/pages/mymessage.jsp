@@ -40,7 +40,7 @@
 	function yidu(url,id){
 		$.post(url+"/own/isread.action",{
 			id:id
-		},function(){});
+		},function(){},"json");
 	}
 </script>
 <%@include file="footer.jsp"%>

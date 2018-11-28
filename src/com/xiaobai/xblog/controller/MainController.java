@@ -408,8 +408,7 @@ public class MainController {
 	 */
 	@RequestMapping(value="/own/isread.action")
 	public void setRead(Integer id) {
-		int res = messageService.setReaded(id);
-		
+		messageService.setReaded(id);
 	}
 	
 }

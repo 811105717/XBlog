@@ -134,7 +134,7 @@
 					$("#messagebody").text("更新用户信息成功！");
 					$("#errmessage").modal('show');
 				}
-			})
+			},"json")
 		}
 	}
 	function deleteblog(url, id) {
@@ -152,7 +152,7 @@
 					$("#messagebody").text("未知错误！！");
 					$("#errmessage").modal('show');
 				}
-			});
+			},"json");
 		})
 	}
 </script>

@@ -54,7 +54,7 @@ function getContent(url) {
     	    	$("#messagebody").text("可能您已经掉线或账户存在异常，请刷新重试");
     	    	$("#errmessage").modal('show');
     		}
-    	});
+    	},"json");
     }
 }
 </script>
