@@ -74,4 +74,11 @@ public interface BlogDao {
 	 * @return 删除结果 1/0 
 	 */
 	public int deleteBlogById(Integer id);
+	
+	/**
+	 *	更新博客
+	 * @param blog
+	 * @return
+	 */
+	public int updateBlog(Blog blog);
 }

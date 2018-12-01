@@ -2,12 +2,12 @@
 <%@include file="header.jsp"%>
 <div class="sui-container">
 	<div class="sui-row-fuild">
-		<div class="span4"></div>
+		<div class="span3"></div>
 		<div class="span6 sui-form">
 			<div class="control-group">
 				<label for="username" class="control-label">用户名:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="text"
+					<input class="input-fat input-block-level" type="text"
 						id="username" name="username" disabled="disabled"
 						value="${ user.username }">
 				</div>
@@ -15,28 +15,28 @@
 			<div class="control-group">
 				<label for="sex" class="control-label">性别:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="text" id="sex"
+					<input class="input-fat input-block-level" type="text" id="sex"
 						name="sex" disabled="disabled" value="${ user.sex }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label for="pass" class="control-label">密码:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="password"
+					<input class="input-fat input-block-level" type="password"
 						id="pass" name="pass" placeholder="密码">
 				</div>
 			</div>
 			<div class="control-group">
 				<label for="passconi" class="control-label">确认密码:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="password"
+					<input class="input-fat input-block-level" type="password"
 						id="passconi" name="passconi" placeholder="确认密码">
 				</div>
 			</div>
 			<div class="control-group">
 				<label for="address" class="control-label">地址:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="text"
+					<input class="input-fat input-block-level" type="text"
 						id="address" name="address" placeholder="地址"
 						value="${ user.address }">
 				</div>
@@ -44,21 +44,21 @@
 			<div class="control-group">
 				<label for="tel" class="control-label">电话:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="tel" id="tel"
+					<input class="input-fat input-block-level" type="tel" id="tel"
 						name="tel" placeholder="电话" value="${ user.tel }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label for="Email" class="control-label">Email:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="text" id="Email"
+					<input class="input-fat input-block-level" type="text" id="Email"
 						name="Email" placeholder="Eamil" value="${ user.email }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label for="regdate" class="control-label">注册日期:</label>
 				<div class="controls">
-					<input class="input-xfat input-block-level" type="text"
+					<input class="input-fat input-block-level" type="text"
 						id="regdate" name="regdate" disabled="disabled"
 						value="${ user.registerdate }">
 				</div>
@@ -88,7 +88,9 @@
 								<td><a href="${ pageContext.request.contextPath }/blog.action?id=${ bl.id }">${ bl.blogtittle }</a></td>
 								<td>${ bl.createdate }</td>
 								<td><button class="sui-btn btn-danger"
-										onclick="deleteblog('${pageContext.request.contextPath}','${ bl.id }')">删除</button></td>
+										onclick="deleteblog('${pageContext.request.contextPath}','${ bl.id }')">删除</button>
+									<a href="${ pageContext.request.contextPath }/own/updateblog.action?id=${ bl.id }" class="sui-btn btn-danger">修改</a>		
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

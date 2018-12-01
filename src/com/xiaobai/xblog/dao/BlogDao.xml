@@ -49,4 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM x_blog WHERE id = #{id}
 	</delete>
 	
+	<update id="updateBlog" parameterType="blog">
+		UPDATE x_blog SET blogtittle = #{blogtittle},blogmain = #{blogmain},createdate = #{createdate},tagid = #{tag} WHERE id = #{id}
+	</update>
 </mapper>

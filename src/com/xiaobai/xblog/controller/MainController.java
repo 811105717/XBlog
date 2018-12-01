@@ -386,6 +386,11 @@ public class MainController {
 		return map;
 	}
 	
+	/**
+	 * 删除一条博客 
+	 * @param id 要删除的博客的id
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/own/delete.action")
 	public Map<String,Object> deleteBlog(Integer id) {
@@ -402,6 +407,15 @@ public class MainController {
 		return map;
 	}
 	
+	@RequestMapping(value="/own/updateblog.action")
+	public String updateBlog(Integer id,Model model) {
+		Blog blog = blogService.queryBlogById(id);
+		System.out.println(blog);
+		model.addAttribute("blog",blog);
+		model.addAttribute("tags",tagService.getAllTag());
+		return "updateblog";
+	}
+	
 	/**
 	 * 设定消息已读 当用户点击某一条消息时触发
 	 * @param id 被点击的消息的id
@@ -409,6 +423,40 @@ public class MainController {
 	@RequestMapping(value="/own/isread.action")
 	public void setRead(Integer id) {
 		messageService.setReaded(id);
+	}
+	
+	/**
+	 * 更新博文 
+	 * @param tittle 标题
+	 * @param tag 标签
+	 * @param text 文章
+	 * @param session 取出用户
+	 * @return 结果 
+	 */
+	@ResponseBody
+	@RequestMapping(value="/own/startupdate.action")
+	public Map<String,Object> startUpdateBlog(Integer id,String tittle,String tag,String text,HttpSession session) {
+		Map<String,Object> map = new HashMap<>();
+		Integer uid = userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")); //肯定能查到 除非非法访问 
+		Blog blog = new Blog();
+		blog.setId(id);
+		blog.setBlogmain(text);
+		blog.setTag(tag);
+		blog.setCreatedate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
+		blog.setUserid(uid);
+		blog.setBlogtittle(tittle);
+		blog.setUpcount(0);
+		blog.setDowncount(0);
+		int res = blogService.UpdateBlog(blog);
+		if(res>0) {
+			blog.setId(res);
+			map.put("result", true);
+			map.put("id", id);
+		}
+		else {
+			map.put("result", false);
+		}
+		return map;
 	}
 	
 }
