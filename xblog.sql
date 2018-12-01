@@ -1,6 +1,4 @@
-/*
- Navicat Premium Data Transfer
-
+﻿/*
  Source Server         : mysql
  Source Server Type    : MySQL
  Source Server Version : 50723
