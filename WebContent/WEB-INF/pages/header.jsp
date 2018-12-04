@@ -224,6 +224,8 @@
 								href="${ pageContext.request.contextPath }/own/center.action">个人中心</a></li>
 							<li><a
 								href="${ pageContext.request.contextPath }/own/message.action">消息中心</a></li>
+							<li><a
+								href="${ pageContext.request.contextPath }/own/piccontrol.action">图片管理</a></li>
 							<li class="sui-dropdown"><a href="javascript:void(0);"
 								data-toggle="dropdown" class="dropdown-toggle">快捷链接</a>
 								<ul role="menu" class="sui-dropdown-menu">

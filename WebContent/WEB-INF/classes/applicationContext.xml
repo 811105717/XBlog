@@ -27,6 +27,21 @@
    			<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory"/>
    		</property>
    </bean>
+   <!-- 配置事务管理 -->
+   <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+   		<property name="dataSource" ref="dataSource"/>
+   </bean>
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+   
+   <!-- 文件上传 -->  
+	<bean id="multipartResolver"  
+	    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+	    <!-- 设置上传文件的最大尺寸为5MB -->  
+	    <property name="maxUploadSize">  
+	        <value>5242880</value>  
+	    </property>  
+	</bean>  
+   
    <!-- 配置扫描mapper  -->
    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
    		<property name="basePackage" value="com.xiaobai.xblog.dao"/>

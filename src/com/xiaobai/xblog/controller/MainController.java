@@ -1,28 +1,37 @@
 package com.xiaobai.xblog.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.HtmlUtils;
 
+import com.xiaobai.xblog.dao.PicDao;
 import com.xiaobai.xblog.pojo.Blog;
 import com.xiaobai.xblog.pojo.Common;
 import com.xiaobai.xblog.pojo.Message;
+import com.xiaobai.xblog.pojo.Pic;
 import com.xiaobai.xblog.pojo.User;
 import com.xiaobai.xblog.service.BlogService;
 import com.xiaobai.xblog.service.CommonService;
 import com.xiaobai.xblog.service.MessageService;
+import com.xiaobai.xblog.service.PicService;
 import com.xiaobai.xblog.service.TagService;
 import com.xiaobai.xblog.service.UserService;
 
@@ -44,6 +53,8 @@ public class MainController {
 	private MessageService messageService;
 	@Autowired
 	private TagService tagService;
+	@Autowired
+	private PicService picService;
 	/**
 	 *处理主页数据，并发送到主页显示 
 	 * @param model 要显示的数据
@@ -459,4 +470,41 @@ public class MainController {
 		return map;
 	}
 	
+	/**
+	 * 获取当前用户的图片  并返回
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/own/piccontrol.action")
+	public String picControl(Model model,HttpSession session) {
+		Integer uid = userService.getUidByName((String)session.getAttribute("_LOGIN_USER_"));
+		List<Pic> piclist = picService.getpicByUid(uid);
+		model.addAttribute("imglist", piclist);
+		return "imglist";
+	}
+	
+	@RequestMapping(value="/own/uploadimg.action")
+	public String uploadPic(@RequestParam MultipartFile getimg,HttpSession session,Model model) {
+		if(getimg!=null) {
+			try {
+				String orginal = getimg.getOriginalFilename();
+				String picpath = "D:\\MyProject\\XBlog\\WebContent\\userImg\\"; //路径写死 注意修改
+				String newFileName = UUID.randomUUID()+orginal.substring(orginal.lastIndexOf("."));
+				String newfilepath = picpath+newFileName;
+				File file = new File(newfilepath);
+				getimg.transferTo(file);
+				Pic p = new Pic();
+				p.setUid(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+				p.setPath(newFileName);
+				int res = picService.addPic(p);
+				if(res>0) {
+					model.addAttribute("info", "添加图片成功");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return "forward:/own/piccontrol.action";
+	}
 }

@@ -25,6 +25,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd ">
 	<mvc:interceptor >
 		<mvc:mapping path="/own/sendcommon.action"/>
 		<mvc:mapping path="/own/center.action"/>
+		<mvc:mapping path="/own/piccontrol.action"/>
+		<mvc:mapping path="/own/uploadimg.action"/>
 		<mvc:mapping path="/own/updateprofile.action"/>
 		<mvc:mapping path="/own/message.action"/>
 		<mvc:mapping path="/own/addblog.action"/>
