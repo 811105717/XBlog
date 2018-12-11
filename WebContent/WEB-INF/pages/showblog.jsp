@@ -156,20 +156,26 @@
 	}
 	
 	function sentcommon(url,id){
-		let common = $("#common").val();
-		$.post(url+"/own/sendcommon.action",{
-			id:id,
-			common:common
-		},function(data){
-			if(data.result){
-				window.location.reload(); //刷新
-			}
-			else{
-				$("#messagetittle").text("失败提示");
-		    	$("#messagebody").text("你已经掉线或者账户存在异常，请刷新重试");
-		    	$("#errmessage").modal('show');
-			}
-		},"json");
+		let common = $("#common").val().trim();
+		if(common==""){
+			$("#messagetittle").text("错误提示");
+	    	$("#messagebody").text("评论不能为空");
+	    	$("#errmessage").modal('show');
+		}else{
+			$.post(url+"/own/sendcommon.action",{
+				id:id,
+				common:common
+			},function(data){
+				if(data.result){
+					window.location.reload(); //刷新
+				}
+				else{
+					$("#messagetittle").text("错误提示");
+			    	$("#messagebody").text("未知错误");
+			    	$("#errmessage").modal('show');
+				}
+			},"json");
+		}
 	}
 </script>
 <%@include file="footer.jsp"%>

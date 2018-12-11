@@ -290,26 +290,27 @@ public class MainController {
 	public Map<String,Object> sentCommon(Integer id,String common,HttpSession session){
 		Map<String,Object> map = new HashMap<>();
 		String secur = HtmlUtils.htmlEscape(common); //防止xss攻击
-		int uid = userService.getUidByName((String)(session.getAttribute("_LOGIN_USER_")));
-		Common c = new Common();
-		c.setBlogid(id); c.setUserid(uid); c.setCommon(secur);
-		c.setAuthorname((String)session.getAttribute("_LOGIN_USER_"));
-		c.setDowncount(0); c.setUpcount(0); 
-		c.setDate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
-		int res = commonServce.sentNewCommon(c);
-		//添加消息
-		Message m = new Message();
-		m.setUid(blogService.getUidByBlogId(id));
-		m.setBlogid(id);
-		m.setMess("您收到了新的评论！");
-		messageService.addMessage(m);
-		
-		if(res>0) {
-			map.put("result", true);
-		}
-		else {
-			map.put("result", false);
-		}
+		Integer uid = userService.getUidByName((String)(session.getAttribute("_LOGIN_USER_")));
+			System.out.println(uid);
+			Common c = new Common();
+			c.setBlogid(id); c.setUserid(uid); c.setCommon(secur);
+			c.setAuthorname((String)session.getAttribute("_LOGIN_USER_"));
+			c.setDowncount(0); c.setUpcount(0); 
+			c.setDate(new SimpleDateFormat("yyyy-MM-dd/HH:mm:ss").format(new Date()));
+			int res = commonServce.sentNewCommon(c);
+			//添加消息
+			Message m = new Message();
+			m.setUid(blogService.getUidByBlogId(id));
+			m.setBlogid(id);
+			m.setMess("您收到了新的评论！");
+			messageService.addMessage(m);
+			
+			if(res>0) {
+				map.put("result", true);
+			}
+			else {
+				map.put("result", false);
+			}
 		return map;
 	}
 	
