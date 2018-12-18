@@ -3,19 +3,24 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaobai.xblog.dao.BlogDao">
+
+	<sql id="baseselect">
+		SELECT * FROM x_blog
+	</sql>
+
 	<select id="getBlogS" resultType="blog">
-		SELECT * FROM x_blog ORDER BY id DESC
+		<include refid="baseselect"/> ORDER BY id DESC
 	</select>
 	<!-- param指定就可以多次使用 -->
 	<select id="queryBlogsByKwd" resultType="blog">
-		SELECT * FROM x_blog
+		<include refid="baseselect"/>
 		<where>
 			blogtittle LIKE "%"#{val}"%" OR blogmain LIKE "%"#{val}"%"
 		</where>
 	</select>
 	<!-- 右链接查tag -->
 	<select id="getBlogById" resultType="blog">
-		SELECT * FROM x_blog LEFT JOIN x_tag ON x_blog.tagid=x_tag.id WHERE x_blog.id = #{id}
+		<include refid="baseselect"/> LEFT JOIN x_tag ON x_blog.tagid=x_tag.id WHERE x_blog.id = #{id}
 	</select>
 	<select id="getBlogUpCountById" resultType="Integer">
 		SELECT upcount from x_blog WHERE id = #{id}
@@ -43,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT userid FROM x_blog WHERE id =#{id}
 	</select>
 	<select id="getBlogsByUid" resultType="blog">
-		SELECT * FROM x_blog WHERE userid = #{id}
+		<include refid="baseselect"/> WHERE userid = #{id}
 	</select>
 	<delete id="deleteBlogById">
 		DELETE FROM x_blog WHERE id = #{id}
