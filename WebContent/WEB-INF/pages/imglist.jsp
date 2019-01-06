@@ -51,10 +51,10 @@
 				<c:forEach items="${ imglist }" var="imgs" >
 					<tr>
 						<td>
-							<img alt="图片" src="/image/${ imgs.path }" height="50px" width="50px">
+							<img alt="图片" src="${pageContext.request.contextPath }${ imgs.path }" height="50px" width="50px">
 						</td>
 						<td>
-							<span>http://localhost:8080/image/${ imgs.path }</span>
+							<span>https://www.xiaobai1202.top${pageContext.request.contextPath }${ imgs.path }</span>
 						</td>
 					</tr>
 				</c:forEach>

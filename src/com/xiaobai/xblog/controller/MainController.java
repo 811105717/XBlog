@@ -485,18 +485,20 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/own/uploadimg.action")
-	public String uploadPic(@RequestParam MultipartFile getimg,HttpSession session,Model model) {
+	public String uploadPic(@RequestParam MultipartFile getimg,HttpServletRequest request,HttpSession session ,Model model) {
 		if(getimg!=null) {
 			try {
 				String orginal = getimg.getOriginalFilename();
-				String picpath = "D:\\MyProject\\XBlog\\WebContent\\userImg\\"; //路径写死 注意修改
+				@SuppressWarnings("deprecation")
+				String picpath = request.getRealPath("/userImg");
+//				String picpath = "D:\\MyProject\\XBlog\\WebContent\\userImg\\"; //路径写死 注意修改 old_method
 				String newFileName = UUID.randomUUID()+orginal.substring(orginal.lastIndexOf("."));
-				String newfilepath = picpath+newFileName;
+				String newfilepath = picpath+"/"+newFileName;
 				File file = new File(newfilepath);
 				getimg.transferTo(file);
 				Pic p = new Pic();
 				p.setUid(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
-				p.setPath(newFileName);
+				p.setPath("/userImg/"+newFileName);
 				int res = picService.addPic(p);
 				if(res>0) {
 					model.addAttribute("info", "添加图片成功");
