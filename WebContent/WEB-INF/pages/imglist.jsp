@@ -2,16 +2,42 @@
 <%@include file="header.jsp"%>
 <div class="sui-container">
 	<c:if test="${ !empty info }">
-		<div class="sui-container">
-			<div class="sui-row-confuild">
-				<div class="span12">
-					<div class="sui-msg msg-large msg-block msg-success">
-						<div class="msg-con">${ info }</div>
-						<s class="msg-icon"></s>
+		<c:if test="${ infocode == 1 }">
+			<div class="sui-container">
+				<div class="sui-row-confuild">
+					<div class="span12">
+						<div class="sui-msg msg-large msg-block msg-success">
+							<div class="msg-con">${ info }</div>
+							<s class="msg-icon"></s>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
+		<c:if test="${ infocode == 0 }">
+			<div class="sui-container">
+				<div class="sui-row-confuild">
+					<div class="span12">
+						<div class="sui-msg msg-large msg-block msg-danger">
+							<div class="msg-con">${ info }</div>
+							<s class="msg-icon"></s>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${ infocode == -1 }">
+			<div class="sui-container">
+				<div class="sui-row-confuild">
+					<div class="span12">
+						<div class="sui-msg msg-large msg-block msg-error">
+							<div class="msg-con">${ info }</div>
+							<s class="msg-icon"></s>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
 	</c:if>
 	<div class="sui-row-fuild">
 		<div class="span3"></div>

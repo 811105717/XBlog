@@ -492,19 +492,30 @@ public class MainController {
 				@SuppressWarnings("deprecation")
 				String picpath = request.getRealPath("/userImg");
 //				String picpath = "D:\\MyProject\\XBlog\\WebContent\\userImg\\"; //路径写死 注意修改 old_method
-				String newFileName = UUID.randomUUID()+orginal.substring(orginal.lastIndexOf("."));
-				String newfilepath = picpath+"/"+newFileName;
-				File file = new File(newfilepath);
-				getimg.transferTo(file);
-				Pic p = new Pic();
-				p.setUid(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
-				p.setPath("/userImg/"+newFileName);
-				int res = picService.addPic(p);
-				if(res>0) {
-					model.addAttribute("info", "添加图片成功");
+				String suffix = orginal.substring(orginal.lastIndexOf("."));
+				//限制一下图片格式 防止传别的东西上来
+				if(".jpg".equals(suffix)||".jpeg".equals(suffix)||"png".equals(suffix)||"gif".equals(suffix)||"bmp".equals(suffix)) {
+					String newFileName = UUID.randomUUID()+orginal.substring(orginal.lastIndexOf("."));
+					String newfilepath = picpath+"/"+newFileName;
+					File file = new File(newfilepath);
+					getimg.transferTo(file);
+					Pic p = new Pic();
+					p.setUid(userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")));
+					p.setPath("/userImg/"+newFileName);
+					int res = picService.addPic(p);
+					if(res>0) {
+						model.addAttribute("info", "添加图片成功");
+						model.addAttribute("infocode", 1);
+					}
+				}else {
+					model.addAttribute("info", "错误！请注意您只能上传支持的图片格式（jpg/jpeg/png/gif/bmp）");
+					model.addAttribute("infocode", -1);
 				}
+				
 			}catch(Exception e) {
 				e.printStackTrace();
+				model.addAttribute("info", "添加图片失败,未知错误");
+				model.addAttribute("infocode", 0);
 			}
 		}
 		
