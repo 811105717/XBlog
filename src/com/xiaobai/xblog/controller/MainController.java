@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.apache.tools.ant.taskdefs.Javadoc.Html;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -80,9 +81,6 @@ public class MainController {
 		if(!kwd.trim().equals("")) {
 			model.addAttribute("kwd", kwd); //搜索结果页面的搜索框内的值
 			List<Blog> results = blogService.searchByKwd(kwd);
-			for (Blog blog : results) {
-				System.out.println(blog);
-			}
 			model.addAttribute("results",results);
 		}
 		return "result";
@@ -97,6 +95,8 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value="/login.action")
 	public Map<String,Object> login(String un,String pwd,HttpSession session) {
+		un = HtmlUtils.htmlEscape(un);
+		pwd = HtmlUtils.htmlEscape(pwd);
 		boolean res = userService.checkUser(un,pwd);
 		Map<String,Object> map = new HashMap<>();
 		if(res) {
@@ -118,6 +118,11 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value="/register.action")
 	public Map<String,Object> register(User u,HttpSession session){
+		u.setUsername(HtmlUtils.htmlEscape(u.getUsername()));
+		u.setPassword(HtmlUtils.htmlEscape(u.getPassword()));
+		u.setAddress(HtmlUtils.htmlEscape(u.getAddress()));
+		u.setEmail(HtmlUtils.htmlEscape(u.getEmail()));
+		u.setTel(HtmlUtils.htmlEscape(u.getTel()));
 		u.setRegisterdate(new SimpleDateFormat("yyyy-MM-dd/:HH:mm:ss").format(new Date()));
 		int res = userService.adduser(u);
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -376,6 +381,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value="/own/addblog.action")
 	public Map<String,Object> sendBlog(String tittle,String tag,String text,HttpSession session){
+		tittle = HtmlUtils.htmlEscape(tittle);
 		Map<String,Object> map = new HashMap<>();
 		Integer uid = userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")); //肯定能查到 除非非法访问 
 		Blog blog = new Blog();
@@ -448,6 +454,7 @@ public class MainController {
 	@ResponseBody
 	@RequestMapping(value="/own/startupdate.action")
 	public Map<String,Object> startUpdateBlog(Integer id,String tittle,String tag,String text,HttpSession session) {
+		tittle = HtmlUtils.htmlEscape(tittle);
 		Map<String,Object> map = new HashMap<>();
 		Integer uid = userService.getUidByName((String)session.getAttribute("_LOGIN_USER_")); //肯定能查到 除非非法访问 
 		Blog blog = new Blog();
